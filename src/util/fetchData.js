@@ -11,6 +11,7 @@ export function fetchData(setCountries) {
         // Filtering countries based on input and select filter
 
         setCountries(data);
+        
       } catch (err) {
         console.log("Error: Could not fetch the data", err);
       }

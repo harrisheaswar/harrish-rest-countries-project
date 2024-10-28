@@ -16,7 +16,7 @@ const CountriesList = ({
   countriesArr = filterBySubRegion(countriesArr, subRegion);
 
   let justify = "";
-  if (countriesArr.length < 8) {
+  if (countriesArr.length < 4) {
     justify = "evenly";
   } else {
     justify = "between";
