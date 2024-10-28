@@ -1,57 +1,49 @@
-import React, { useState, useEffect } from "react";
 import Country from "./Country";
-const CountriesList = ({ country, region }) => {
-  const [countries, setCountries] = useState([]);
+import { filterAndSearch } from "../util/filterAndSearch";
+import { sortListBySelection } from "../util/sortListBySelection";
+import { filterBySubRegion } from "../util/filterBySubRegion";
 
-  let url = "https://restcountries.com/v3.1/all";
+const CountriesList = ({
+  country,
+  sort,
+  subRegion,
+  region,
+  countries,
+  darkMode,
+}) => {
+  let countriesArr = filterAndSearch(countries, country, region);
+  countriesArr = sortListBySelection(countriesArr, sort);
+  countriesArr = filterBySubRegion(countriesArr, subRegion);
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
+  let justify = "";
+  if (countriesArr.length < 8) {
+    justify = "evenly";
+  } else {
+    justify = "between";
+  }
 
-        // Filtering countries based on input and select filter
-
-        setCountries(data);
-      } catch (err) {
-        console.log("Error: Could not fetch the data", err);
-      }
-    };
-    fetchCountries();
-  }, []);
-
-  let countriesArr = [];
-  console.log(countries);
-  countriesArr = countries.filter((countryData) => {
-    if (country && region) {
-      let countryRegex = new RegExp(country, "i");
-      let regionRegex = new RegExp(region, "i");
-      console.log(countryRegex);
-      return (
-        countryRegex.test(countryData.name.common) &&
-        regionRegex.test(countryData.region)
-      );
-    } else if (country) {
-      let countryRegex = new RegExp(country, "i");
-      return countryRegex.test(countryData.name.common);
-    } else if (region) {
-      let regionRegex = new RegExp(region, "i");
-      return regionRegex.test(countryData.region);
-    }
-    return true;
-  });
+  if (countriesArr.length === 0)
+    return (
+      <div className="flex flex-col items-center  w-100% h-[auto] bg-gray-100">
+        <h1 className="text-[5rem] mt-[5rem]">404 not Found</h1>
+      </div>
+    );
 
   return (
-    <div className="flex flex-col flex-wrap md:w-[100%] md:flex-row  justify-between items-center mt-[3rem] ">
+    <div
+      className={` flex flex-col flex-wrap md:w-[100%] h-[auto] justify-${justify} items-center md:flex-row mt-[3rem]`}
+    >
       {countriesArr.map((country, index) => (
         <Country
+          id={country.cca3}
           key={index}
           flag={country.flags.png}
           name={country.name.common}
           population={country.population}
           region={country.region}
           capital={country.capital}
+          justify={justify}
+          darkMode={darkMode}
         />
       ))}
     </div>

@@ -1,12 +1,27 @@
 import React from "react";
-const Header = () => {
-  return (
-    <div className="flex px-[1rem] justify-between md:justify-between items-center  w-[100%] h-[4rem]  shadow-md md:px-[6rem]">
-      <h1 className="text-[1rem] md:text-[1.5rem] font-extrabold">
-        Where in the World?
-      </h1>
+import { Link } from "react-router-dom";
 
-      <p className="text-[0.8rem] md:text-[1rem] cursor-pointer">
+const Header = ({ darkModeSwitch }) => {
+  const changeBgMode = () => {
+    darkModeSwitch();
+  };
+
+  return (
+    <div
+      className={`flex px-[2rem] justify-between md:justify-between items-center  w-[100%] h-[6rem]  md:px-[4rem] lg:px-[8.5rem]`}
+    >
+      <Link to="/">
+        <h1
+          className={` text-[1.2rem] md:text-[1.5rem] font-extrabold cursor-pointer`}
+        >
+          Where in the World?
+        </h1>
+      </Link>
+
+      <p
+        onClick={changeBgMode}
+        className="text-[0.8rem] md:text-[1rem] cursor-pointer"
+      >
         <span className="mr-[0.5rem]">
           <i className="fa-regular fa-moon"></i>
         </span>
