@@ -5,7 +5,7 @@ export function filterAndSearch(countries, country, region) {
     if (country && region) {
       let countryRegex = new RegExp(country, "i");
       let regionRegex = new RegExp(region, "i");
-      console.log(countryRegex);
+
       return (
         countryRegex.test(countryData.name.common) &&
         regionRegex.test(countryData.region)

@@ -1,21 +1,19 @@
-import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export function fetchData(setCountries) {
-  let url = "/api/";
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
+  let url = import.meta.env.VITE_API_URL;
 
-        // Filtering countries based on input and select filter
+  const fetchCountries = async () => {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-        setCountries(data);
-        
-      } catch (err) {
-        console.log("Error: Could not fetch the data", err);
-      }
-    };
-    fetchCountries();
-  }, []);
+      // Filtering countries based on input and select filter
+
+      setCountries(data);
+    } catch (err) {
+      toast.error("Error: Could not fetch the data");
+    }
+  };
+  fetchCountries();
 }

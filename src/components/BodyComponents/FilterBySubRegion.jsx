@@ -10,7 +10,6 @@ const FilterBySubRegion = ({
 
   if (region) {
     subRegions = fetchSubRegions(countries, region);
-    console.log(region);
   }
 
   const selectSubRegionChange = (e) => {

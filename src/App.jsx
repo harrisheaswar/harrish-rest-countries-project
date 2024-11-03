@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchData } from "./util/fetchData";
 import {
   Route,
@@ -11,7 +11,6 @@ import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
 import { codeToCountryMapper } from "./util/codeToCountryMapper";
 import NotFoundPage from "./pages/NotFoundPage";
-
 function App() {
   const [countries, setCountries] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
@@ -19,8 +18,10 @@ function App() {
   const darkModeSwitch = () => {
     setDarkMode(!darkMode);
   };
+  useEffect(() => {
+    fetchData(setCountries);
+  }, []);
 
-  fetchData(setCountries);
   let codeToCountryMap = codeToCountryMapper(countries);
   const router = createBrowserRouter(
     createRoutesFromElements(

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getSingleCountry } from "../util/getSingleCountry";
@@ -8,7 +8,10 @@ const DetailsPage = ({ countries, codeToCountryMap, darkMode }) => {
   const [singleCountry, setSingleCountry] = useState("");
   const { id } = useParams();
 
-  getSingleCountry(countries, id, setSingleCountry);
+  useEffect(() => {
+    getSingleCountry(countries, id, setSingleCountry);
+  }, [countries, id]);
+
   let background = "bg-gray-100";
   let text = "";
   let background2 = "bg-gray-100";

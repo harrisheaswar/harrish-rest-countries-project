@@ -13,7 +13,7 @@ const BorderCountriesBtns = ({ borders, codeToCountryMap, darkMode }) => {
   return (
     <>
       {borders.map((border) => (
-        <Link to={`/country/${border}`}>
+        <Link key={border} to={`/country/${border}`}>
           <button
             key={border}
             id={border}
